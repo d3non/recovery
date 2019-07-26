@@ -1,7 +1,11 @@
 {
-  "name": "node_passport_login",
+  "name": "recov",
   "version": "2.0.0",
-  "description": "Node.js authentication with Passport",
+  "description": "Debt recovery systme",
+  "engines": {
+    "node": "10.3.0",
+    "npm": "6.4.1"
+  },
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
