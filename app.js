@@ -1,11 +1,15 @@
+const path = require('path');
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
+//const expressLayouts = require('express-ejs-layouts');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-
+const exphbs = require('express-handlebars');
 const app = express();
+
+
 
 // Passport Config
 require('./config/passport')(passport);
@@ -23,11 +27,31 @@ mongoose
   .catch(err => console.log(err));
 
 // EJS
-app.use(expressLayouts);
-app.set('view engine', 'ejs');
+//app.use(expressLayouts);
+//app.set('view engine', 'ejs');
 
-// Express body parser
-app.use(express.urlencoded({ extended: true }));
+// Handlebars
+const viewsPath = path.join(__dirname, 'views');
+const layoutsPath = path.join(viewsPath, 'layouts');
+const partialsPath = path.join(viewsPath, 'partials');
+app.set('views', viewsPath);
+
+const exphbsConfig = exphbs.create({
+  defaultLayout: 'main',
+  layoutsDir: layoutsPath,
+  partialsDir: [partialsPath],
+  extname: '.hbs'
+});
+
+app.engine('hbs', exphbsConfig.engine);
+app.set('view engine', '.hbs');
+
+// BodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Express static assets
+app.use(express.static("public"));
 
 // Express session
 app.use(
@@ -57,6 +81,6 @@ app.use(function(req, res, next) {
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
