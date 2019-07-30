@@ -30,6 +30,9 @@ mongoose
 //app.use(expressLayouts);
 //app.set('view engine', 'ejs');
 
+app.engine('hbs', exphbsConfig.engine);
+app.set('view engine', '.hbs');
+
 // Handlebars
 const viewsPath = path.join(__dirname, 'views');
 const layoutsPath = path.join(viewsPath, 'layouts');
@@ -42,9 +45,6 @@ const exphbsConfig = exphbs.create({
   partialsDir: [partialsPath],
   extname: '.hbs'
 });
-
-app.engine('hbs', exphbsConfig.engine);
-app.set('view engine', '.hbs');
 
 // BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
