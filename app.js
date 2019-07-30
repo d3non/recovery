@@ -43,7 +43,7 @@ const exphbsConfig = exphbs.create({
 });
 
 app.engine('hbs', exphbsConfig.engine);
-app.set('view engine', '.hbs');
+app.set('view engine', '.HBS');
 
 app.set('views', viewsPath);
 
