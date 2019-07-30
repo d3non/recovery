@@ -39,11 +39,11 @@ const exphbsConfig = exphbs.create({
   defaultLayout: 'main',
   layoutsDir: layoutsPath,
   partialsDir: [partialsPath],
-  extname: '.HBS'
+  extname: '.hbs'
 });
 
 app.engine('hbs', exphbsConfig.engine);
-app.set('view engine', '.HBS');
+app.set('view engine', '.hbs');
 
 app.set('views', viewsPath);
 
