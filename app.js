@@ -2,22 +2,17 @@ const path = require('path');
 const express = require('express');
 //const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const app = express();
 
+// MongoDB DB Config
+//const db = require('./config/keys').mongoURI;
 
-
-// Passport Config
-require('./config/passport')(passport);
-
-// DB Config
-const db = require('./config/keys').mongoURI;
-
-// Connect to MongoDB
+/* Connect to MongoDB
 mongoose
   .connect(
     db,
@@ -25,6 +20,7 @@ mongoose
   )
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
+*/
 
 // EJS
 //app.use(expressLayouts);
@@ -67,6 +63,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Passport Config
+require('./config/passport')(passport);
+
 // Connect flash
 app.use(flash());
 
@@ -82,6 +81,24 @@ app.use(function(req, res, next) {
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 
-const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+//app.listen(PORT, console.log(`Server started on port ${PORT}`));
+
+// Models
+const models = require('./models');
+
+// Sync Database
+models.sequelize
+  .sync()
+  .then(function() {
+    console.log('Database Connected');
+
+    app.listen((process.env.PORT || 5000), function(err) {
+      if (!err) console.log('Connected at http://localhost:5000');
+      else console.log(err);
+    });
+  })
+  .catch(function(err) {
+    console.log(err, 'Error on Database Sync. Please try again!');
+  });
