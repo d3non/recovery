@@ -9,11 +9,11 @@ var orm =
 
 	//selectAll()
 
-	selectAll: function(idStreet, callback) 
+	selectAll: function(callback)
 	{
 		//mySQL Query
-		console.log("selectAll: " + idStreet);
-		connection.query('SELECT * FROM visits where ? and ?', [{id_cluster: '1'}, {id_street: idStreet}], function(err, result)
+		console.log("selectAll: ");
+		connection.query('SELECT * FROM credits', function(err, result)
 		{
 			if (err) throw err;
 			callback(result);
@@ -22,7 +22,7 @@ var orm =
 	},
 
 	//insertOne()
-	insertOne: function(burger_name, callback)
+	/*insertOne: function(burger_name, callback)
 	{
 		connection.query('INSERT INTO visits SET ?', 
 			{	burger_name: burger_name,
@@ -44,7 +44,7 @@ var orm =
 				if (err) throw err;
 				callback(result);
 			});
-	}
+	}*/
 };
 
 

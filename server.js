@@ -5,6 +5,9 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var env = require('dotenv').load();
 var exphbs = require('express-handlebars');
+var Handlebars = require('handlebars');
+var helpers = require('handlebars-helpers')();
+var HandlebarsIntl = require('handlebars-intl');
 LocalStrategy = require('passport-local').Strategy;
 
 //Body Parser
@@ -30,6 +33,8 @@ app.use(express.static("./app/public"));
 var authRoute = require('./app/routes/auth.js')(app, passport);
 
 //For Handlebars
+HandlebarsIntl.registerWith(Handlebars);
+
 app.set('views', './app/views')
 app.engine('hbs', exphbs({
     extname: '.hbs'

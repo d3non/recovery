@@ -17,9 +17,9 @@ exports.dashboard = function (req, res) {
 
 }
 
-exports.tables = function (req, res) {
+exports.credits = function (req, res) {
 
-    res.render('tables');
+    res.render('credits');
 
 }
 

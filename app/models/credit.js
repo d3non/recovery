@@ -4,13 +4,10 @@ module.exports = (sequelize, Sequelize) => {
     first_name: { type: Sequelize.STRING, notEmpty: true },
     mid_name: { type: Sequelize.STRING, notEmpty: true },
     last_name: { type: Sequelize.STRING, notEmpty: true },
-    street_name: { type: Sequelize.STRING, notEmpty: true },
-    house_number: { type: Sequelize.STRING, notEmpty: true },
-    apartment_number: { autoIncrement: false, primaryKey: false, type: Sequelize.INTEGER },
-    neighborhood: { type: Sequelize.STRING, notEmpty: true },
-    zip_code: { autoIncrement: false, primaryKey: false, type: Sequelize.INTEGER },
-    id_state: { autoIncrement: false, primaryKey: false, type: Sequelize.INTEGER },
-    id_city: { autoIncrement: false, primaryKey: false, type: Sequelize.INTEGER }
+    date_issued: { type: Sequelize.DATE, notEmpty: true },
+    last_payment: { type: Sequelize.DATE, notEmpty: true },
+    total_pay: { type: Sequelize.DOUBLE },
+    total_debt: { type: Sequelize.DOUBLE }
   });
 
   return Credit;

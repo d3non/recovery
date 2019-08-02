@@ -1,6 +1,9 @@
 var authController = require('../controllers/authcontroller.js');
 
+
 module.exports = function (app, passport) {
+    var main = require('../models/main.js');
+
     //GET
     app.get('/signup', authController.signup)
 
@@ -10,7 +13,7 @@ module.exports = function (app, passport) {
 
     app.get('/dashboard', isLoggedIn, authController.dashboard);
 
-    app.get('/tables', isLoggedIn, authController.tables);
+    //app.get('/credits', isLoggedIn, authController.credits);
 
     //POST
     app.post('/signin', passport.authenticate('local-signin', {
@@ -24,12 +27,22 @@ module.exports = function (app, passport) {
         failureRedirect: '/signin'
     }
     ));
-    
+
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
             return next();
 
         res.redirect('/signin');
     }
+
+    app.get('/credits', function (req, res) 
+    {
+      main.selectAll(function(data) 
+      {
+        var hbsObject = { credits: data };
+        console.log(hbsObject);
+        res.render('credits', hbsObject);
+      });
+    });
 }
 
