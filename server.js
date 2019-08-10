@@ -52,9 +52,7 @@ models.sequelize.sync().then(function () {
 });
 
 //Listening APP at port 5000
-app.listen(5000, function (err) {
-    if (!err)
-        console.log("Site is live");
-    else console.log(err)
-
-});
+app.listen((process.env.PORT || 5000), function(err) {
+    if (!err) console.log('Connected at http://localhost:5000');
+    else console.log(err);
+  });
