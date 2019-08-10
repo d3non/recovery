@@ -28,6 +28,13 @@ module.exports = function (app, passport) {
     }
     ));
 
+    /*app.post('/signup', (req, res, next) => { 
+        passport.authenticate('local-signup', {
+        sucessRedirect: '/dashboard',
+        failureRedirect: '/signin'
+        })(req, res, next);
+    });*/
+
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
             return next();
@@ -35,8 +42,7 @@ module.exports = function (app, passport) {
         res.redirect('/signin');
     }
 
-    app.get('/credits', function (req, res) 
-    {
+    app.get('/credits', function (req, res) {
       main.selectAll(function(data) 
       {
         var hbsObject = { credits: data };
@@ -44,5 +50,8 @@ module.exports = function (app, passport) {
         res.render('credits', hbsObject);
       });
     });
+
+    app.get('/agents', authController.agents);
+
 }
 

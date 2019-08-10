@@ -23,6 +23,12 @@ exports.credits = function (req, res) {
 
 }
 
+exports.agents = function (req, res) {
+
+    res.render('agents');
+
+}
+
 exports.logout = function (req, res) {
 
     req.session.destroy(function (err) {

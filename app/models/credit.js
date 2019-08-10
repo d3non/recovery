@@ -7,7 +7,8 @@ module.exports = (sequelize, Sequelize) => {
     date_issued: { type: Sequelize.DATE, notEmpty: true },
     last_payment: { type: Sequelize.DATE, notEmpty: true },
     total_pay: { type: Sequelize.DOUBLE },
-    total_debt: { type: Sequelize.DOUBLE }
+    total_debt: { type: Sequelize.DOUBLE },
+    id_agent: { autoIncrement: false, primaryKey: false, type: Sequelize.INTEGER }
   });
 
   return Credit;
